@@ -82,6 +82,74 @@ def generate_calendar_for(month, year)
   pretty_month = pretty_month + month_pretty(month_array)
   print_month(pretty_month)
 end
+def generate_calendar_full_year(year)
+
+end
+def generate_month_without_year_in_title(month, year)
+  month = month.to_i
+  year = year.to_i
+  pretty_month = Array.new
+  month_code = MONTHS[month][:zellers_month]
+  z_year = get_zellers_year(month, year)
+  month_name = MONTHS[month][:name]
+  month_and_year = "#{month_name}".center(20)
+  days_of_the_week = "Su Mo Tu We Th Fr Sa"
+  pretty_month << month_and_year
+  pretty_month << days_of_the_week
+  month_start_day = get_month_start_day(month_code, z_year)
+  num_days_in_month = MONTHS[month][:days_in_month]
+  num_days_in_month += 1 if month_name == "February" && leap_year?(year)
+  month_array = generate_month(num_days_in_month, month_start_day)
+  pretty_month = pretty_month + month_pretty(month_array)
+
+end
+def complete_year(year)
+  complete_year = Array.new
+  complete_year[0, 12] = [generate_month_without_year_in_title(1, year),
+    generate_month_without_year_in_title(2, year),
+    generate_month_without_year_in_title(3, year),
+    generate_month_without_year_in_title(4, year),
+    generate_month_without_year_in_title(5, year),
+    generate_month_without_year_in_title(6, year),
+    generate_month_without_year_in_title(7, year),
+    generate_month_without_year_in_title(8, year),
+    generate_month_without_year_in_title(9, year),
+    generate_month_without_year_in_title(10, year),
+    generate_month_without_year_in_title(11, year),
+    generate_month_without_year_in_title(12, year)
+  ]
+end
+def year_pretty(complete_year_array)
+  pretty_year = Array.new
+  i = 1
+  j = 0
+  x = 0
+  new_line = ""
+  while i <= 96 do 
+    line = complete_year_array[j][x]
+    if i == 24 || i == 48 || i == 72
+      new_line = new_line + line
+      pretty_year << new_line
+      new_line = ""
+      j += 1
+      x = 0
+    elsif i % 3 == 0
+      new_line = new_line + line
+      pretty_year << new_line
+      new_line = ""
+      j -= 2
+      x += 1
+    else
+      new_line = new_line + line + "  "
+      j += 1
+    end
+    i += 1
+  end
+  pretty_year
+end
+def print_year(pretty_year_array)
+
+end
 def print_month(month_array)
   result = ""
   month_array.each do |line|
