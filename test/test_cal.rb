@@ -4,16 +4,16 @@ require 'calendar'
 class CalTest < Test::Unit::TestCase
 
   def test_01_find_month_code
-    assert_equal 13, get_month_code(1)
+    assert_equal 13, MONTHS[1][:zellers_month]
   end
   def test_01b_find_month_code
-    assert_equal 6, get_month_code(6)
+    assert_equal 6, MONTHS[6][:zellers_month]
   end
   def test_01c_month_name_is_correct
-    assert_equal "February", get_month_name(2)
+    assert_equal "February", MONTHS[2][:name]
   end
   def test_01d_month_name_is_correct
-    assert_equal "March", get_month_name(3)
+    assert_equal "March", MONTHS[3][:name]
   end
 
   def test_04_month_start_day
@@ -54,11 +54,8 @@ class CalTest < Test::Unit::TestCase
     assert_equal false, leap_year?(1993)
   end
 
-  def test_06_number_of_days_in_month
-    assert_equal 29, get_num_days_in_month(2, 2012)
-  end
   def test_07_number_of_days_in_month
-    assert_equal 31, get_num_days_in_month(12, 2012)
+    assert_equal 31, MONTHS[12][:days_in_month]
   end
 
   def test_10_calendar_month_array_correct_num_days
