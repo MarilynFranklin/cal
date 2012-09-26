@@ -106,65 +106,6 @@ def generate_month_without_year_in_title(month, year)
   pretty_month = pretty_month + month_pretty(month_array)
 
 end
-def complete_year(year)
-  complete_year = Array.new
-  complete_year[0, 12] = [generate_month_without_year_in_title(1, year),
-    generate_month_without_year_in_title(2, year),
-    generate_month_without_year_in_title(3, year),
-    generate_month_without_year_in_title(4, year),
-    generate_month_without_year_in_title(5, year),
-    generate_month_without_year_in_title(6, year),
-    generate_month_without_year_in_title(7, year),
-    generate_month_without_year_in_title(8, year),
-    generate_month_without_year_in_title(9, year),
-    generate_month_without_year_in_title(10, year),
-    generate_month_without_year_in_title(11, year),
-    generate_month_without_year_in_title(12, year)
-  ]
-end
-def year_pretty(complete_year_array)
-  pretty_year = Array.new
-  i = 1
-  j = 0
-  x = 0
-  new_line = ""
-  while i <= 96 do 
-    line = complete_year_array[j][x]
-    if i == 24 || i == 48 || i == 72
-      new_line = new_line + line
-      pretty_year << new_line
-      new_line = ""
-      j += 1
-      x = 0
-    elsif i % 3 == 0
-      new_line = new_line + line
-      pretty_year << new_line
-      new_line = ""
-      j -= 2
-      x += 1
-    else
-      new_line = new_line + line + "  "
-      j += 1
-    end
-    i += 1
-  end
-  pretty_year
-end
-def print_year(pretty_year_array, year)
-  year = "#{year}".center(64)
-  extra_line = " " * 64
-  year = year + "\n"
-  i = 1
-  pretty_year_array.each do |line|
-    if i % 8 == 0
-      year = year + line + "\n" + extra_line + "\n"
-    else
-      year = year + line + "\n"
-    end
-    i += 1
-  end
-  year
-end
 def print_month(month_array)
   result = ""
   month_array.each do |line|
@@ -220,4 +161,71 @@ def leap_year?(year)
   else
     false
   end 
+end
+
+# ========= print full year implementation ========== #
+
+def complete_year(year)
+  complete_year = Array.new
+  complete_year[0, 12] = [generate_month_without_year_in_title(1, year),
+    generate_month_without_year_in_title(2, year),
+    generate_month_without_year_in_title(3, year),
+    generate_month_without_year_in_title(4, year),
+    generate_month_without_year_in_title(5, year),
+    generate_month_without_year_in_title(6, year),
+    generate_month_without_year_in_title(7, year),
+    generate_month_without_year_in_title(8, year),
+    generate_month_without_year_in_title(9, year),
+    generate_month_without_year_in_title(10, year),
+    generate_month_without_year_in_title(11, year),
+    generate_month_without_year_in_title(12, year)
+  ]
+end
+def year_pretty(complete_year_array)
+  last_line_of_third_month = 24
+  last_line_of_sixth_month = 48
+  last_line_of_ninth_month = 72
+  last_line_of_twelfth_month = 96
+  pretty_year = Array.new
+  i = 1
+  j = 0
+  x = 0
+  new_line = ""
+  while i <= last_line_of_twelfth_month do 
+    line = complete_year_array[j][x]
+    if i == last_line_of_third_month  || i == last_line_of_sixth_month || i == last_line_of_ninth_month
+      new_line = new_line + line
+      pretty_year << new_line
+      new_line = ""
+      j += 1
+      x = 0
+    elsif i % 3 == 0
+      new_line = new_line + line
+      pretty_year << new_line
+      new_line = ""
+      j -= 2
+      x += 1
+    else
+      new_line = new_line + line + "  "
+      j += 1
+    end
+    i += 1
+  end
+  pretty_year
+end
+def print_year(pretty_year_array, year)
+  full_line_length = 64
+  year = "#{year}".center(full_line_length)
+  extra_line = " " * full_line_length
+  year = year + "\n"
+  i = 1
+  pretty_year_array.each do |line|
+    if i % 8 == 0
+      year = year + line + "\n" + extra_line + "\n"
+    else
+      year = year + line + "\n"
+    end
+    i += 1
+  end
+  year
 end
