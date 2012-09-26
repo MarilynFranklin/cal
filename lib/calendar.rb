@@ -29,23 +29,15 @@ def generate_calendar_for(month, year)
   pretty_month = Array.new
   month_code = get_month_code(month)
   z_year = get_zellers_year(month, year)
-
-  month_name = get_month_name(month_code)
-
+  month_name = get_month_name(month)
   month_and_year = "#{month_name} #{year}".center(20)
   days_of_the_week = "Su Mo Tu We Th Fr Sa"
-
   pretty_month << month_and_year
   pretty_month << days_of_the_week
-
-  month_start_day = get_month_start_day(month_code, 1, z_year)
-
+  month_start_day = get_month_start_day(month_code, z_year)
   num_days_in_month = get_num_days_in_month(month, year)
-
   month_array = generate_month(num_days_in_month, month_start_day)
-
-  second_half_month = month_pretty(month_array)
-  pretty_month = pretty_month + second_half_month
+  pretty_month = pretty_month + month_pretty(month_array)
   print_month(pretty_month)
 end
 def print_month(month_array)
@@ -55,17 +47,12 @@ def print_month(month_array)
   end
   result
 end
-
-def get_month_start_day(month, day, year)
- 
-
+def get_month_start_day(month, year)
+  day = 1
   year_of_century = (year % 100).floor
   century = (year / 100.0).floor
-
   day_of_week = (century/4.0).floor + (5 * century) + year_of_century + (year_of_century/4).floor + (((month + 1) * 26) / 10.0).floor + day
   day_of_week = day_of_week.modulo(7)
-
-
 end
 
 def get_month_code(month)
@@ -77,29 +64,29 @@ end
 
 def get_month_name(month_code)
   case month_code
-    when 13
+    when JAN
       "January"
-    when 14
+    when FEB
       "February"
-    when 3
+    when MAR
       "March"
-    when 4
+    when APR
       "April"
-    when 5
+    when MAY
       "May"
-    when 6
+    when JUN
       "June"
-    when 7
+    when JUL
       "July"
-    when 8
+    when AUG
       "August"
-    when 9
+    when SEP
       "September"
-    when 10
+    when OCT
       "October"
-    when 11
+    when NOV
       "November"
-    when 12
+    when DEC
       "December"
   end
 end
@@ -144,9 +131,8 @@ def generate_month(days_in_month, month_start_day)
   end
   month = ("1".."#{days_in_month}").to_a
   month = spaces_before + month
-
-  spaces_after = [" "] * (42 - month.size) 
-
+  final_array_size = 42
+  spaces_after = [" "] * (final_array_size - month.size) 
   month = month + spaces_after
 end
 def month_pretty(month_array)
@@ -165,7 +151,6 @@ def month_pretty(month_array)
   end
   pretty_month
 end
-
 def leap_year?(year)
   if (year % 400) == 0
     true
