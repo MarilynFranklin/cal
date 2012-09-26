@@ -83,7 +83,10 @@ def generate_calendar_for(month, year)
   print_month(pretty_month)
 end
 def generate_calendar_full_year(year)
-
+  year = year.to_i
+  complete_year_array = complete_year(year)
+  pretty_year = year_pretty(complete_year_array)
+  print_year(pretty_year, year)
 end
 def generate_month_without_year_in_title(month, year)
   month = month.to_i
@@ -147,8 +150,20 @@ def year_pretty(complete_year_array)
   end
   pretty_year
 end
-def print_year(pretty_year_array)
-
+def print_year(pretty_year_array, year)
+  year = "#{year}".center(64)
+  extra_line = " " * 64
+  year = year + "\n"
+  i = 1
+  pretty_year_array.each do |line|
+    if i % 8 == 0
+      year = year + line + "\n" + extra_line + "\n"
+    else
+      year = year + line + "\n"
+    end
+    i += 1
+  end
+  year
 end
 def print_month(month_array)
   result = ""
