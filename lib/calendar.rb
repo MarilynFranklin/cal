@@ -122,11 +122,14 @@ def month_pretty(month_array)
   pretty_month
 end
 def leap_year?(year)
-  if (year % 400) == 0
+  four_hundred_years = 400
+  one_hundred_years = 100
+  four_years = 4
+  if (year % four_hundred_years) == 0
     true
-  elsif (year % 100) == 0
+  elsif (year % one_hundred_years) == 0
     false
-  elsif (year % 4) == 0
+  elsif (year % four_years) == 0
     true
   else
     false
