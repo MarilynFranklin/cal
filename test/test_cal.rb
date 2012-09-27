@@ -59,7 +59,13 @@ class CalTest < Test::Unit::TestCase
   end
 
   def test_10_generate_month_has_correct_spaces_before_and_after
-    assert_equal [" ", " ", " ", " ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", " ", " ", " ", " ", " ", " ", " "], generate_month(31, 5)
+    assert_equal [" ", " ", " ", " ", "1", "2", "3",
+                 "4", "5", "6", "7", "8", "9", "10", 
+                 "11", "12", "13", "14", "15", "16",
+                 "17", "18", "19", "20", "21", "22", 
+                 "23", "24", "25", "26", "27", "28", 
+                 "29", "30", "31", " ", " ", " ", " ", 
+                 " ", " ", " "], generate_month(31, 5)
   end
   def test_11_month_pretty_contains_lines_for_days_in_month
     month = generate_month(31, 5)
