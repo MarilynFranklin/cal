@@ -1,66 +1,5 @@
-SAT = 0
-MONTHS = {
-  1 => {
-    :name => "January", 
-    :zellers_month => 13, 
-    :days_in_month => 31
-  }, 
-  2 => {
-    :name => "February", 
-    :zellers_month => 14, 
-    :days_in_month => 28
-  }, 
-  3 => {
-    :name => "March", 
-    :zellers_month => 3,
-    :days_in_month => 31
-  },
-  4 => {
-    :name => "April",
-    :zellers_month => 4,
-    :days_in_month => 30
-  },
-  5 => {
-    :name => "May",
-    :zellers_month => 5,
-    :days_in_month => 31
-  },
-  6 => {
-    :name => "June",
-    :zellers_month => 6,
-    :days_in_month => 30
-  },
-  7 => {
-    :name => "July",
-    :zellers_month => 7,
-    :days_in_month => 31
-  },
-  8 => {
-    :name => "August",
-    :zellers_month => 8,
-    :days_in_month => 31
-  },
-  9 => {
-    :name => "September",
-    :zellers_month => 9,
-    :days_in_month => 30
-  },
-  10 => {
-    :name => "October",
-    :zellers_month => 10,
-    :days_in_month => 31
-  },
-  11 => {
-    :name => "November",
-    :zellers_month => 11,
-    :days_in_month => 30
-  },
-  12 => {
-    :name => "December",
-    :zellers_month => 12,
-    :days_in_month => 31
-  }
-}
+require 'constants'
+
 def generate_calendar_for(month, year)
   pretty_month = Array.new
   month_code = MONTHS[month][:zellers_month]
@@ -121,14 +60,11 @@ def month_pretty(month_array)
   pretty_month
 end
 def leap_year?(year)
-  four_hundred_years = 400
-  one_hundred_years = 100
-  four_years = 4
-  if (year % four_hundred_years) == 0
+  if (year % FOUR_HUNDRED_YEARS) == 0
     true
-  elsif (year % one_hundred_years) == 0
+  elsif (year % ONE_HUNDRED_YEARS) == 0
     false
-  elsif (year % four_years) == 0
+  elsif (year % FOUR_YEARS) == 0
     true
   else
     false
@@ -155,28 +91,23 @@ def generate_month_without_year_in_title(month, year)
   pretty_month = pretty_month + month_pretty(month_array)
 end
 def complete_year(year)
-  last_month = 12
   complete_year = Array.new
   i = 1
-  while i <= last_month do 
+  while i <= LAST_MONTH do 
     complete_year << generate_month_without_year_in_title(i, year)
     i += 1
   end
   complete_year
 end
 def year_pretty(complete_year_array)
-  last_line_of_third_month = 24
-  last_line_of_sixth_month = 48
-  last_line_of_ninth_month = 72
-  last_line_of_twelfth_month = 96
   pretty_year = Array.new
   i = 1
   year_index = 0
   month_index = 0
   new_line = ""
-  while i <= last_line_of_twelfth_month do 
+  while i <= LAST_LINE_OF_TWELFTH_MONTH do 
     line = complete_year_array[year_index][month_index]
-    if i.eql?(last_line_of_third_month)  || i.eql?(last_line_of_sixth_month) || i.eql?(last_line_of_ninth_month)
+    if i == LAST_LINE_OF_THIRD_MONTH  || i == LAST_LINE_OF_SIXTH_MONTH || i == LAST_LINE_OF_NINTH_MONTH
       pretty_year << new_line + line
       new_line = ""
       year_index += 1
@@ -195,14 +126,13 @@ def year_pretty(complete_year_array)
   pretty_year
 end
 def print_year(pretty_year_array, year)
-  half_line_length = 32
-  year = "#{year}".rjust(half_line_length) + "\n"
-  year = year
+  last_line = pretty_year_array.length
+  year = "#{year}".rjust(YEAR_HALF_LINE_LENGTH) + "\n"
   i = 1
   pretty_year_array.each do |line|
     if i % 8 == 0
       year = year + line + "\n" 
-      year = year + "\n" if i != 32
+      year = year + "\n" if i != last_line
     else
       year = year + line + "\n"
     end
