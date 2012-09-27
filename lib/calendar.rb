@@ -157,20 +157,14 @@ def generate_month_without_year_in_title(month, year)
   pretty_month = pretty_month + month_pretty(month_array)
 end
 def complete_year(year)
+  last_month = 12
   complete_year = Array.new
-  complete_year[0, 12] = [generate_month_without_year_in_title(1, year),
-    generate_month_without_year_in_title(2, year),
-    generate_month_without_year_in_title(3, year),
-    generate_month_without_year_in_title(4, year),
-    generate_month_without_year_in_title(5, year),
-    generate_month_without_year_in_title(6, year),
-    generate_month_without_year_in_title(7, year),
-    generate_month_without_year_in_title(8, year),
-    generate_month_without_year_in_title(9, year),
-    generate_month_without_year_in_title(10, year),
-    generate_month_without_year_in_title(11, year),
-    generate_month_without_year_in_title(12, year)
-  ]
+  i = 1
+  while i <= last_month do 
+    complete_year << generate_month_without_year_in_title(i, year)
+    i += 1
+  end
+  complete_year
 end
 def year_pretty(complete_year_array)
   last_line_of_third_month = 24
