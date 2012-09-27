@@ -200,13 +200,13 @@ def year_pretty(complete_year_array)
 end
 def print_year(pretty_year_array, year)
   full_line_length = 64
-  year = "#{year}".center(full_line_length)
-  extra_line = " " * full_line_length
-  year = year + "\n"
+  year = "#{year}".center(full_line_length) + "\n"
+  extra_line = " " * full_line_length + "\n"
+  year = year
   i = 1
   pretty_year_array.each do |line|
     if i % 8 == 0
-      year = year + line + "\n" + extra_line + "\n"
+      year = year + line + "\n" + extra_line
     else
       year = year + line + "\n"
     end
