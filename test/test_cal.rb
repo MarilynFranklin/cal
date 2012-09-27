@@ -72,7 +72,15 @@ class CalTest < Test::Unit::TestCase
   end
 
   def test_14_calendar_month_array_correct_num_days
-    assert_equal  "     March 1999       \nSu Mo Tu We Th Fr Sa  \n    1  2  3  4  5  6  \n 7  8  9 10 11 12 13  \n14 15 16 17 18 19 20  \n21 22 23 24 25 26 27  \n28 29 30 31           \n                      \n", generate_calendar_for(3, 1999)
+    assert_equal  """     March 1999       
+Su Mo Tu We Th Fr Sa  
+    1  2  3  4  5  6  
+ 7  8  9 10 11 12 13  
+14 15 16 17 18 19 20  
+21 22 23 24 25 26 27  
+28 29 30 31           
+                      
+""", generate_calendar_for(3, 1999)
   end
   def test_15_calendar_month_array_correct_num_days
     assert_equal  ["        July          ",
@@ -218,9 +226,121 @@ class CalTest < Test::Unit::TestCase
                    "31                                                                "], year_pretty(complete_year(1886))
   end
   def test_18_print_year_is_correct
-    assert_equal  "                            1886\n      January               February               March          \nSu Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  \n                1  2      1  2  3  4  5  6      1  2  3  4  5  6  \n 3  4  5  6  7  8  9   7  8  9 10 11 12 13   7  8  9 10 11 12 13  \n10 11 12 13 14 15 16  14 15 16 17 18 19 20  14 15 16 17 18 19 20  \n17 18 19 20 21 22 23  21 22 23 24 25 26 27  21 22 23 24 25 26 27  \n24 25 26 27 28 29 30  28                    28 29 30 31           \n31                                                                \n\n       April                  May                   June          \nSu Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  \n             1  2  3                     1         1  2  3  4  5  \n 4  5  6  7  8  9 10   2  3  4  5  6  7  8   6  7  8  9 10 11 12  \n11 12 13 14 15 16 17   9 10 11 12 13 14 15  13 14 15 16 17 18 19  \n18 19 20 21 22 23 24  16 17 18 19 20 21 22  20 21 22 23 24 25 26  \n25 26 27 28 29 30     23 24 25 26 27 28 29  27 28 29 30           \n                      30 31                                       \n\n        July                 August              September        \nSu Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  \n             1  2  3   1  2  3  4  5  6  7            1  2  3  4  \n 4  5  6  7  8  9 10   8  9 10 11 12 13 14   5  6  7  8  9 10 11  \n11 12 13 14 15 16 17  15 16 17 18 19 20 21  12 13 14 15 16 17 18  \n18 19 20 21 22 23 24  22 23 24 25 26 27 28  19 20 21 22 23 24 25  \n25 26 27 28 29 30 31  29 30 31              26 27 28 29 30        \n                                                                  \n\n      October               November              December        \nSu Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  \n                1  2      1  2  3  4  5  6            1  2  3  4  \n 3  4  5  6  7  8  9   7  8  9 10 11 12 13   5  6  7  8  9 10 11  \n10 11 12 13 14 15 16  14 15 16 17 18 19 20  12 13 14 15 16 17 18  \n17 18 19 20 21 22 23  21 22 23 24 25 26 27  19 20 21 22 23 24 25  \n24 25 26 27 28 29 30  28 29 30              26 27 28 29 30 31     \n31                                                                \n", print_year(year_pretty(complete_year(1886)), 1886)
+    assert_equal  """                            1886
+      January               February               March          
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+                1  2      1  2  3  4  5  6      1  2  3  4  5  6  
+ 3  4  5  6  7  8  9   7  8  9 10 11 12 13   7  8  9 10 11 12 13  
+10 11 12 13 14 15 16  14 15 16 17 18 19 20  14 15 16 17 18 19 20  
+17 18 19 20 21 22 23  21 22 23 24 25 26 27  21 22 23 24 25 26 27  
+24 25 26 27 28 29 30  28                    28 29 30 31           
+31                                                                
+
+       April                  May                   June          
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+             1  2  3                     1         1  2  3  4  5  
+ 4  5  6  7  8  9 10   2  3  4  5  6  7  8   6  7  8  9 10 11 12  
+11 12 13 14 15 16 17   9 10 11 12 13 14 15  13 14 15 16 17 18 19  
+18 19 20 21 22 23 24  16 17 18 19 20 21 22  20 21 22 23 24 25 26  
+25 26 27 28 29 30     23 24 25 26 27 28 29  27 28 29 30           
+                      30 31                                       
+
+        July                 August              September        
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+             1  2  3   1  2  3  4  5  6  7            1  2  3  4  
+ 4  5  6  7  8  9 10   8  9 10 11 12 13 14   5  6  7  8  9 10 11  
+11 12 13 14 15 16 17  15 16 17 18 19 20 21  12 13 14 15 16 17 18  
+18 19 20 21 22 23 24  22 23 24 25 26 27 28  19 20 21 22 23 24 25  
+25 26 27 28 29 30 31  29 30 31              26 27 28 29 30        
+                                                                  
+
+      October               November              December        
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+                1  2      1  2  3  4  5  6            1  2  3  4  
+ 3  4  5  6  7  8  9   7  8  9 10 11 12 13   5  6  7  8  9 10 11  
+10 11 12 13 14 15 16  14 15 16 17 18 19 20  12 13 14 15 16 17 18  
+17 18 19 20 21 22 23  21 22 23 24 25 26 27  19 20 21 22 23 24 25  
+24 25 26 27 28 29 30  28 29 30              26 27 28 29 30 31     
+31                                                                
+""", print_year(year_pretty(complete_year(1886)), 1886)
   end
   def test_19_generate_full_calendar_year
-    assert_equal  "                            1886\n      January               February               March          \nSu Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  \n                1  2      1  2  3  4  5  6      1  2  3  4  5  6  \n 3  4  5  6  7  8  9   7  8  9 10 11 12 13   7  8  9 10 11 12 13  \n10 11 12 13 14 15 16  14 15 16 17 18 19 20  14 15 16 17 18 19 20  \n17 18 19 20 21 22 23  21 22 23 24 25 26 27  21 22 23 24 25 26 27  \n24 25 26 27 28 29 30  28                    28 29 30 31           \n31                                                                \n\n       April                  May                   June          \nSu Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  \n             1  2  3                     1         1  2  3  4  5  \n 4  5  6  7  8  9 10   2  3  4  5  6  7  8   6  7  8  9 10 11 12  \n11 12 13 14 15 16 17   9 10 11 12 13 14 15  13 14 15 16 17 18 19  \n18 19 20 21 22 23 24  16 17 18 19 20 21 22  20 21 22 23 24 25 26  \n25 26 27 28 29 30     23 24 25 26 27 28 29  27 28 29 30           \n                      30 31                                       \n\n        July                 August              September        \nSu Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  \n             1  2  3   1  2  3  4  5  6  7            1  2  3  4  \n 4  5  6  7  8  9 10   8  9 10 11 12 13 14   5  6  7  8  9 10 11  \n11 12 13 14 15 16 17  15 16 17 18 19 20 21  12 13 14 15 16 17 18  \n18 19 20 21 22 23 24  22 23 24 25 26 27 28  19 20 21 22 23 24 25  \n25 26 27 28 29 30 31  29 30 31              26 27 28 29 30        \n                                                                  \n\n      October               November              December        \nSu Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  \n                1  2      1  2  3  4  5  6            1  2  3  4  \n 3  4  5  6  7  8  9   7  8  9 10 11 12 13   5  6  7  8  9 10 11  \n10 11 12 13 14 15 16  14 15 16 17 18 19 20  12 13 14 15 16 17 18  \n17 18 19 20 21 22 23  21 22 23 24 25 26 27  19 20 21 22 23 24 25  \n24 25 26 27 28 29 30  28 29 30              26 27 28 29 30 31     \n31                                                                \n", generate_calendar_full_year(1886)
+    assert_equal  """                            1886
+      January               February               March          
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+                1  2      1  2  3  4  5  6      1  2  3  4  5  6  
+ 3  4  5  6  7  8  9   7  8  9 10 11 12 13   7  8  9 10 11 12 13  
+10 11 12 13 14 15 16  14 15 16 17 18 19 20  14 15 16 17 18 19 20  
+17 18 19 20 21 22 23  21 22 23 24 25 26 27  21 22 23 24 25 26 27  
+24 25 26 27 28 29 30  28                    28 29 30 31           
+31                                                                
+
+       April                  May                   June          
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+             1  2  3                     1         1  2  3  4  5  
+ 4  5  6  7  8  9 10   2  3  4  5  6  7  8   6  7  8  9 10 11 12  
+11 12 13 14 15 16 17   9 10 11 12 13 14 15  13 14 15 16 17 18 19  
+18 19 20 21 22 23 24  16 17 18 19 20 21 22  20 21 22 23 24 25 26  
+25 26 27 28 29 30     23 24 25 26 27 28 29  27 28 29 30           
+                      30 31                                       
+
+        July                 August              September        
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+             1  2  3   1  2  3  4  5  6  7            1  2  3  4  
+ 4  5  6  7  8  9 10   8  9 10 11 12 13 14   5  6  7  8  9 10 11  
+11 12 13 14 15 16 17  15 16 17 18 19 20 21  12 13 14 15 16 17 18  
+18 19 20 21 22 23 24  22 23 24 25 26 27 28  19 20 21 22 23 24 25  
+25 26 27 28 29 30 31  29 30 31              26 27 28 29 30        
+                                                                  
+
+      October               November              December        
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+                1  2      1  2  3  4  5  6            1  2  3  4  
+ 3  4  5  6  7  8  9   7  8  9 10 11 12 13   5  6  7  8  9 10 11  
+10 11 12 13 14 15 16  14 15 16 17 18 19 20  12 13 14 15 16 17 18  
+17 18 19 20 21 22 23  21 22 23 24 25 26 27  19 20 21 22 23 24 25  
+24 25 26 27 28 29 30  28 29 30              26 27 28 29 30 31     
+31                                                                
+""", generate_calendar_full_year(1886)
+  end
+
+  def test_20_generate_full_calendar_year
+    assert_equal  """                            3000
+      January               February               March          
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+          1  2  3  4                     1                     1  
+ 5  6  7  8  9 10 11   2  3  4  5  6  7  8   2  3  4  5  6  7  8  
+12 13 14 15 16 17 18   9 10 11 12 13 14 15   9 10 11 12 13 14 15  
+19 20 21 22 23 24 25  16 17 18 19 20 21 22  16 17 18 19 20 21 22  
+26 27 28 29 30 31     23 24 25 26 27 28     23 24 25 26 27 28 29  
+                                            30 31                 
+
+       April                  May                   June          
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+       1  2  3  4  5               1  2  3   1  2  3  4  5  6  7  
+ 6  7  8  9 10 11 12   4  5  6  7  8  9 10   8  9 10 11 12 13 14  
+13 14 15 16 17 18 19  11 12 13 14 15 16 17  15 16 17 18 19 20 21  
+20 21 22 23 24 25 26  18 19 20 21 22 23 24  22 23 24 25 26 27 28  
+27 28 29 30           25 26 27 28 29 30 31  29 30                 
+                                                                  
+
+        July                 August              September        
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+       1  2  3  4  5                  1  2      1  2  3  4  5  6  
+ 6  7  8  9 10 11 12   3  4  5  6  7  8  9   7  8  9 10 11 12 13  
+13 14 15 16 17 18 19  10 11 12 13 14 15 16  14 15 16 17 18 19 20  
+20 21 22 23 24 25 26  17 18 19 20 21 22 23  21 22 23 24 25 26 27  
+27 28 29 30 31        24 25 26 27 28 29 30  28 29 30              
+                      31                                          
+
+      October               November              December        
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+          1  2  3  4                     1      1  2  3  4  5  6  
+ 5  6  7  8  9 10 11   2  3  4  5  6  7  8   7  8  9 10 11 12 13  
+12 13 14 15 16 17 18   9 10 11 12 13 14 15  14 15 16 17 18 19 20  
+19 20 21 22 23 24 25  16 17 18 19 20 21 22  21 22 23 24 25 26 27  
+26 27 28 29 30 31     23 24 25 26 27 28 29  28 29 30 31           
+                      30                                          
+""", generate_calendar_full_year(3000)
   end
 end
