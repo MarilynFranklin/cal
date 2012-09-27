@@ -2,12 +2,10 @@ require 'constants'
 
 def generate_calendar_for(month, year)
   pretty_month = Array.new
-  month_code = MONTHS[month][:zellers_month]
-  z_year = get_zellers_year(month, year)
   month_name = MONTHS[month][:name]
   title = "#{month_name} #{year}".center(20) + "  "
   pretty_month[0, 2] = [title, "Su Mo Tu We Th Fr Sa  "]
-  month_start_day = get_month_start_day(month_code, z_year)
+  month_start_day = get_month_start_day(month, year)
   num_days_in_month = MONTHS[month][:days_in_month]
   num_days_in_month += 1 if month_name == "February" && leap_year?(year)
   month_array = generate_month(num_days_in_month, month_start_day)
@@ -22,10 +20,12 @@ def print_month(month_array)
   month
 end
 def get_month_start_day(month, year)
+  month_code = MONTHS[month][:zellers_month]
+  z_year = get_zellers_year(month, year)
   day = 1
-  year_of_century = (year % 100).floor
-  century = (year / 100.0).floor
-  day_of_week = (century/4.0).floor + (5 * century) + year_of_century + (year_of_century/4).floor + (((month + 1) * 26) / 10.0).floor + day
+  year_of_century = (z_year % 100).floor
+  century = (z_year / 100.0).floor
+  day_of_week = (century/4.0).floor + (5 * century) + year_of_century + (year_of_century/4).floor + (((month_code + 1) * 26) / 10.0).floor + day
   day_of_week = day_of_week.modulo(7)
 end
 def get_zellers_year(month, year)
@@ -79,12 +79,10 @@ end
 def generate_month_without_year_in_title(month, year)
   month_calendar_width = 20
   pretty_month = Array.new
-  month_code = MONTHS[month][:zellers_month]
-  z_year = get_zellers_year(month, year)
   month_name = MONTHS[month][:name]
   month_title = "#{month_name}".center(month_calendar_width) + "  "
   pretty_month[0, 2] = [month_title, "Su Mo Tu We Th Fr Sa  "]
-  month_start_day = get_month_start_day(month_code, z_year)
+  month_start_day = get_month_start_day(month, year)
   num_days_in_month = MONTHS[month][:days_in_month]
   num_days_in_month += 1 if month_name == "February" && leap_year?(year)
   month_array = generate_month(num_days_in_month, month_start_day)

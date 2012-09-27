@@ -20,7 +20,7 @@ class CalTest < Test::Unit::TestCase
     assert_equal 0, get_month_start_day(12, 2012)
   end
   def test_04b_month_start_day
-    assert_equal 0, get_month_start_day(13, 1999)
+    assert_equal 0, get_month_start_day(1, 2000)
   end
 
   def test_04c_month_start_day
@@ -28,7 +28,7 @@ class CalTest < Test::Unit::TestCase
   end  
 
   def test_04d_month_start_day
-    assert_equal 4, get_month_start_day(14, 2011)
+    assert_equal 4, get_month_start_day(2, 2012)
   end 
 
   def test_04e_month_start_day
