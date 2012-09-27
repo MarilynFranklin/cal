@@ -76,31 +76,12 @@ def generate_calendar_for(month, year)
   pretty_month = pretty_month + month_pretty(month_array)
   print_month(pretty_month)
 end
-def generate_calendar_full_year(year)
-  complete_year_array = complete_year(year)
-  pretty_year = year_pretty(complete_year_array)
-  print_year(pretty_year, year)
-end
-def generate_month_without_year_in_title(month, year)
-  pretty_month = Array.new
-  month_code = MONTHS[month][:zellers_month]
-  z_year = get_zellers_year(month, year)
-  month_name = MONTHS[month][:name]
-  month_title = "#{month_name}".center(20)
-  days_of_the_week = "Su Mo Tu We Th Fr Sa"
-  pretty_month[0, 2] = [month_title, days_of_the_week]
-  month_start_day = get_month_start_day(month_code, z_year)
-  num_days_in_month = MONTHS[month][:days_in_month]
-  num_days_in_month += 1 if month_name == "February" && leap_year?(year)
-  month_array = generate_month(num_days_in_month, month_start_day)
-  pretty_month = pretty_month + month_pretty(month_array)
-end
 def print_month(month_array)
-  result = ""
+  month = ""
   month_array.each do |line|
-    result = result + line + "\n"
+    month = month + line + "\n"
   end
-  result
+  month
 end
 def get_month_start_day(month, year)
   day = 1
@@ -152,6 +133,26 @@ def leap_year?(year)
   end 
 end
 # ========= print full year implementation ========== #
+def generate_calendar_full_year(year)
+  complete_year_array = complete_year(year)
+  pretty_year = year_pretty(complete_year_array)
+  print_year(pretty_year, year)
+end
+def generate_month_without_year_in_title(month, year)
+  month_calendar_width = 20
+  pretty_month = Array.new
+  month_code = MONTHS[month][:zellers_month]
+  z_year = get_zellers_year(month, year)
+  month_name = MONTHS[month][:name]
+  month_title = "#{month_name}".center(month_calendar_width)
+  days_of_the_week = "Su Mo Tu We Th Fr Sa"
+  pretty_month[0, 2] = [month_title, days_of_the_week]
+  month_start_day = get_month_start_day(month_code, z_year)
+  num_days_in_month = MONTHS[month][:days_in_month]
+  num_days_in_month += 1 if month_name == "February" && leap_year?(year)
+  month_array = generate_month(num_days_in_month, month_start_day)
+  pretty_month = pretty_month + month_pretty(month_array)
+end
 def complete_year(year)
   complete_year = Array.new
   complete_year[0, 12] = [generate_month_without_year_in_title(1, year),
