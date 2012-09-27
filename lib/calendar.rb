@@ -1,5 +1,4 @@
 SAT = 0
-# create hash for constants
 MONTHS = {
   1 => {
     :name => "January", 
@@ -61,20 +60,15 @@ MONTHS = {
     :zellers_month => 12,
     :days_in_month => 31
   }
-
 }
-
 def generate_calendar_for(month, year)
-  month = month.to_i
-  year = year.to_i
   pretty_month = Array.new
   month_code = MONTHS[month][:zellers_month]
   z_year = get_zellers_year(month, year)
   month_name = MONTHS[month][:name]
   month_and_year = "#{month_name} #{year}".center(20)
   days_of_the_week = "Su Mo Tu We Th Fr Sa"
-  pretty_month << month_and_year
-  pretty_month << days_of_the_week
+  pretty_month[0, 2] = [month_and_year, days_of_the_week]
   month_start_day = get_month_start_day(month_code, z_year)
   num_days_in_month = MONTHS[month][:days_in_month]
   num_days_in_month += 1 if month_name == "February" && leap_year?(year)
@@ -83,28 +77,23 @@ def generate_calendar_for(month, year)
   print_month(pretty_month)
 end
 def generate_calendar_full_year(year)
-  year = year.to_i
   complete_year_array = complete_year(year)
   pretty_year = year_pretty(complete_year_array)
   print_year(pretty_year, year)
 end
 def generate_month_without_year_in_title(month, year)
-  month = month.to_i
-  year = year.to_i
   pretty_month = Array.new
   month_code = MONTHS[month][:zellers_month]
   z_year = get_zellers_year(month, year)
   month_name = MONTHS[month][:name]
-  month_and_year = "#{month_name}".center(20)
+  month_title = "#{month_name}".center(20)
   days_of_the_week = "Su Mo Tu We Th Fr Sa"
-  pretty_month << month_and_year
-  pretty_month << days_of_the_week
+  pretty_month[0, 2] = [month_title, days_of_the_week]
   month_start_day = get_month_start_day(month_code, z_year)
   num_days_in_month = MONTHS[month][:days_in_month]
   num_days_in_month += 1 if month_name == "February" && leap_year?(year)
   month_array = generate_month(num_days_in_month, month_start_day)
   pretty_month = pretty_month + month_pretty(month_array)
-
 end
 def print_month(month_array)
   result = ""
@@ -162,9 +151,7 @@ def leap_year?(year)
     false
   end 
 end
-
 # ========= print full year implementation ========== #
-
 def complete_year(year)
   complete_year = Array.new
   complete_year[0, 12] = [generate_month_without_year_in_title(1, year),
@@ -188,26 +175,26 @@ def year_pretty(complete_year_array)
   last_line_of_twelfth_month = 96
   pretty_year = Array.new
   i = 1
-  j = 0
-  x = 0
+  year_index = 0
+  month_index = 0
   new_line = ""
   while i <= last_line_of_twelfth_month do 
-    line = complete_year_array[j][x]
+    line = complete_year_array[year_index][month_index]
     if i == last_line_of_third_month  || i == last_line_of_sixth_month || i == last_line_of_ninth_month
       new_line = new_line + line
       pretty_year << new_line
       new_line = ""
-      j += 1
-      x = 0
+      year_index += 1
+      month_index = 0
     elsif i % 3 == 0
       new_line = new_line + line
       pretty_year << new_line
       new_line = ""
-      j -= 2
-      x += 1
+      year_index -= 2
+      month_index += 1
     else
       new_line = new_line + line + "  "
-      j += 1
+      year_index += 1
     end
     i += 1
   end
