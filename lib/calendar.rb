@@ -66,8 +66,8 @@ def generate_calendar_for(month, year)
   month_code = MONTHS[month][:zellers_month]
   z_year = get_zellers_year(month, year)
   month_name = MONTHS[month][:name]
-  title = "#{month_name} #{year}".center(20)
-  pretty_month[0, 2] = [title, "Su Mo Tu We Th Fr Sa"]
+  title = "#{month_name} #{year}".center(20) + "  "
+  pretty_month[0, 2] = [title, "Su Mo Tu We Th Fr Sa  "]
   month_start_day = get_month_start_day(month_code, z_year)
   num_days_in_month = MONTHS[month][:days_in_month]
   num_days_in_month += 1 if month_name == "February" && leap_year?(year)
@@ -110,7 +110,7 @@ def month_pretty(month_array)
   line = ""
   month_array.each do |n|
     if i % 7 == 0
-      line += n.rjust(2)
+      line += n.rjust(2) + "  "
       pretty_month << line
       line = ""
     else
@@ -146,8 +146,8 @@ def generate_month_without_year_in_title(month, year)
   month_code = MONTHS[month][:zellers_month]
   z_year = get_zellers_year(month, year)
   month_name = MONTHS[month][:name]
-  month_title = "#{month_name}".center(month_calendar_width)
-  pretty_month[0, 2] = [month_title, "Su Mo Tu We Th Fr Sa"]
+  month_title = "#{month_name}".center(month_calendar_width) + "  "
+  pretty_month[0, 2] = [month_title, "Su Mo Tu We Th Fr Sa  "]
   month_start_day = get_month_start_day(month_code, z_year)
   num_days_in_month = MONTHS[month][:days_in_month]
   num_days_in_month += 1 if month_name == "February" && leap_year?(year)
@@ -187,7 +187,7 @@ def year_pretty(complete_year_array)
       year_index -= 2
       month_index += 1
     else
-      new_line = new_line + line + "  "
+      new_line = new_line + line
       year_index += 1
     end
     i += 1
@@ -195,14 +195,14 @@ def year_pretty(complete_year_array)
   pretty_year
 end
 def print_year(pretty_year_array, year)
-  full_line_length = 64
-  year = "#{year}".center(full_line_length) + "\n"
-  extra_line = " " * full_line_length + "\n"
+  half_line_length = 32
+  year = "#{year}".rjust(half_line_length) + "\n"
   year = year
   i = 1
   pretty_year_array.each do |line|
     if i % 8 == 0
-      year = year + line + "\n" + extra_line
+      year = year + line + "\n" 
+      year = year + "\n" if i != 32
     else
       year = year + line + "\n"
     end
