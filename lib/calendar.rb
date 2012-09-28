@@ -1,10 +1,10 @@
-require 'constants'
+require './constants'
 
 def generate_calendar_for(month, year)
   pretty_month = Array.new
   month_name = MONTHS[month][:name]
   title = "#{month_name} #{year}".center(20) + "  "
-  pretty_month[0, 2] = [title, "Su Mo Tu We Th Fr Sa  "]
+  pretty_month[0, 2] = [title, WEEK_DAYS]
   month_start_day = get_month_start_day(month, year)
   num_days_in_month = MONTHS[month][:days_in_month]
   num_days_in_month += 1 if month_name == "February" && leap_year?(year)
@@ -23,9 +23,9 @@ def get_month_start_day(month, year)
   month_code = MONTHS[month][:zellers_month]
   z_year = get_zellers_year(month, year)
   day = 1
-  year_of_century = (z_year % 100).floor
-  century = (z_year / 100.0).floor
-  day_of_week = (century/4.0).floor + (5 * century) + year_of_century + (year_of_century/4).floor + (((month_code + 1) * 26) / 10.0).floor + day
+  year_of_century = (z_year % ONE_HUNDRED_YEARS).floor
+  century = (z_year / ONE_HUNDRED_YEARS).floor
+  day_of_week = (century/FOUR_YEARS).floor + (5 * century) + year_of_century + (year_of_century/FOUR_YEARS).floor + (((month_code + 1) * 26) / 10.0).floor + day
   day_of_week = day_of_week.modulo(7)
 end
 def get_zellers_year(month, year)
@@ -39,8 +39,7 @@ def generate_month(days_in_month, month_start_day)
   end
   month = ("1".."#{days_in_month}").to_a
   month = spaces_before + month
-  final_array_size = 42
-  spaces_after = [" "] * (final_array_size - month.size) 
+  spaces_after = [" "] * (FIRST_MONTH_ARRAY_SIZE - month.size) 
   month = month + spaces_after
 end
 def month_pretty(month_array)
@@ -81,7 +80,7 @@ def generate_month_without_year_in_title(month, year)
   pretty_month = Array.new
   month_name = MONTHS[month][:name]
   month_title = "#{month_name}".center(month_calendar_width) + "  "
-  pretty_month[0, 2] = [month_title, "Su Mo Tu We Th Fr Sa  "]
+  pretty_month[0, 2] = [month_title, WEEK_DAYS]
   month_start_day = get_month_start_day(month, year)
   num_days_in_month = MONTHS[month][:days_in_month]
   num_days_in_month += 1 if month_name == "February" && leap_year?(year)
@@ -110,7 +109,7 @@ def year_pretty(complete_year_array)
       new_line = ""
       year_index += 1
       month_index = 0
-    elsif i % 3 == 0
+    elsif i % EVERY_THIRD_LINE == 0
       pretty_year << new_line + line
       new_line = ""
       year_index -= 2
