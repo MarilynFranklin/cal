@@ -1,4 +1,4 @@
-require './constants'
+require './lib/constants'
 
 def generate_calendar_for(month, year)
   pretty_month = Array.new
@@ -59,7 +59,7 @@ def month_pretty(month_array)
   pretty_month
 end
 def leap_year?(year)
-  if (year % FOUR_HUNDRED_YEARS) == 0
+  if (year % FOUR_HUNDRED_YEARS) == 0 
     true
   elsif (year % ONE_HUNDRED_YEARS) == 0
     false
@@ -142,9 +142,9 @@ end
 
 def reassign_month_name_to_integer_value(month_string, year)
   month_int = nil
-  NEW_MONTHS.keys.each do |month|
+  MONTHS_ABBR.keys.each do |month|
     if month_string =~ /(#{Regexp.quote(month)})/
-      month_int = NEW_MONTHS[$1]
+      month_int = MONTHS_ABBR[$1]
     end
   end
   if month_int.nil?

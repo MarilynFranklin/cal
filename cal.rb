@@ -1,4 +1,4 @@
-require './calendar'
+require './lib/calendar'
 
 if ARGV.length == 2
   month_string = ARGV[0].downcase
@@ -9,12 +9,12 @@ if ARGV.length == 2
   	puts "#{year_string} is not a valid year."
   elsif month_string.match(/\D/)
     if month_string.length < 3
-      puts "#{month_string} is not a valid month" 
+      puts "#{month_string} is neither a month number (1..12) nor a name" 
     else
       reassign_month_name_to_integer_value(month_string, year)
     end
   elsif month < 1 || month > 12
-    puts "Please enter a valid numerical month (ex: enter 1 for January, or 12 for December)."
+    puts "#{month}is neither a month number (1..12) nor a name"
   elsif year < 1800 || year > 3000
   	puts "Sorry, cal only works for dates from year 1800 through year 3000."
   else
