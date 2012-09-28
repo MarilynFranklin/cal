@@ -137,3 +137,19 @@ def print_year(pretty_year_array, year)
   end
   year
 end
+
+# ========= assign month name to correct integer value implementation ========== #
+
+def reassign_month_name_to_integer_value(month_string, year)
+  month_int = nil
+  NEW_MONTHS.keys.each do |month|
+    if month_string =~ /(#{Regexp.quote(month)})/
+      month_int = NEW_MONTHS[$1]
+    end
+  end
+  if month_int.nil?
+    puts "#{month_string} is not a valid month."
+  else
+    puts generate_calendar_for(month_int, year)
+  end
+end

@@ -11,17 +11,7 @@ if ARGV.length == 2
     if month_string.length < 3
       puts "#{month_string} is not a valid month" 
     else
-      month_int = nil
-      NEW_MONTHS.keys.each do |month|
-        if month_string =~ /(#{Regexp.quote(month)})/
-          month_int = NEW_MONTHS[$1]
-        end
-      end
-      if month_int.nil?
-        puts "#{month_string} is not a valid month."
-      else
-        puts generate_calendar_for(month_int, year)
-      end
+      reassign_month_name_to_integer_value(month_string, year)
     end
   elsif month < 1 || month > 12
     puts "Please enter a valid numerical month (ex: enter 1 for January, or 12 for December)."
@@ -41,3 +31,4 @@ elsif ARGV.length == 1
     puts generate_calendar_full_year(year)
   end
 end
+
