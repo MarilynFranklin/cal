@@ -19,6 +19,8 @@ def print_month(month_array)
   end
   month
 end
+# Calculations for finding the day of the week that a givens months begins on 
+# Implemented using Zeller's Congruence http://en.wikipedia.org/wiki/Zeller%27s_congruence
 def get_month_start_day(month, year)
   month_code = MONTHS[month][:zellers_month]
   z_year = get_zellers_year(month, year)
@@ -28,6 +30,8 @@ def get_month_start_day(month, year)
   day_of_week = (century/FOUR_YEARS).floor + (5 * century) + year_of_century + (year_of_century/FOUR_YEARS).floor + (((month_code + 1) * 26) / 10.0).floor + day
   day_of_week = day_of_week.modulo(7)
 end
+# In zeller's congruence, January and February are calculated using the previous year
+# Implemented using Zeller's Congruence http://en.wikipedia.org/wiki/Zeller%27s_congruence
 def get_zellers_year(month, year)
   zellers_year = month < 3 ? year - 1 : year
 end
@@ -58,6 +62,9 @@ def month_pretty(month_array)
   end
   pretty_month
 end
+# leap years are either divisible by 400 or by 4
+# years that are divisible by 100 are not leap years
+# http://en.wikipedia.org/wiki/Leap_year
 def leap_year?(year)
   if (year % FOUR_HUNDRED_YEARS) == 0 
     true
