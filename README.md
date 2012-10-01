@@ -28,18 +28,16 @@ How to use
 
 	To print a month, type in terminal:
 
-	ruby cal.rb 2 2012
-
-	
-	-or-
-
-	
-	ruby cal.rb feb 2012
+		ruby cal.rb 2 2012
+		
+		-or-
+		
+		ruby cal.rb feb 2012
 
 	
 	To print an entire year, type in terminal:
 
-	ruby cal.rb 2012
+		ruby cal.rb 2012
 
 
 Dependencies
