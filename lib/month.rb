@@ -66,6 +66,7 @@ class Month
     added_padding_array = days_and_spaces_array.inject(Array.new) { |memo, value| memo << value.center(3)}
     weeks_array = Array.new
     added_padding_array.each_slice(7) { |value| weeks_array << value.join + " " }
+    weeks_array
   end
 
   def print_month
