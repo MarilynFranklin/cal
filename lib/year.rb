@@ -23,31 +23,18 @@ class Year
   end
 
   def three_column_year_array
-    jan_to_mar = compile_three_months(0)
-    apr_to_jun = compile_three_months(3)
-    jul_to_sep = compile_three_months(6)
-    oct_to_dec = compile_three_months(9)
+    jan_to_mar, apr_to_jun = compile_three_months(0), compile_three_months(3)
+    jul_to_sep, oct_to_dec = compile_three_months(6), compile_three_months(9)
     three_column_year = jan_to_mar + apr_to_jun + jul_to_sep + oct_to_dec
   end
 
   def compile_three_months(month_index)
-    three_months_grouped = []
-    i = 1
-    week_index = 0
-    new_line = ""
-    while i <= LAST_LINE_OF_THIRD_MONTH do 
-      line = complete_year[month_index][week_index]     
-      if i % EVERY_THIRD_LINE == 0
-        three_months_grouped << new_line + line
-        new_line = ""
-        month_index -= 2
-        week_index += 1
-      else
-        new_line = new_line + line
-        month_index += 1
-      end
-      i += 1
+    three_months_grouped, temp, week_index = [], [], 0
+    while week_index <= LAST_WEEK_INDEX do
+      complete_year[month_index..month_index + 2].each{ |line| temp << line[week_index]}
+      week_index += 1
     end
+    temp.each_slice(3) { |value| three_months_grouped << value.join }
     three_months_grouped
   end
 
