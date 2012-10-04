@@ -31,7 +31,7 @@ class Year
   def compile_three_months(month_index)
     three_months_grouped, temp, week_index = [], [], 0
     while week_index <= LAST_WEEK_INDEX do
-      complete_year[month_index..month_index + 2].each{ |line| temp << line[week_index]}
+      complete_year[month_index..month_index + 2].each{ |line| temp << line[week_index] }
       week_index += 1
     end
     temp.each_slice(3) { |value| three_months_grouped << value.join }
@@ -40,7 +40,7 @@ class Year
 
   def print_year
     year = title
-    three_column_year_array.collect{|line| line + "\n" }.each_slice(8){|line| year += line.join + "\n" }
+    three_column_year_array.collect{ |line| line + "\n" }.each_slice(8){|line| year += line.join + "\n" }
     year.chop
   end
 
