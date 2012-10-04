@@ -4,17 +4,11 @@ class Month
   attr_reader :month, :year, :month_name
 
   def initialize(month, year)
-    @month = month
-    @year = year
-    @month_name = MONTHS[month][:name]
+    @month, @year, @month_name = month, year, MONTHS[month][:name]
   end
 
-  def title
-    title = "#{@month_name} #{year}".center(20) + "  \n"
-  end
-
-  def simple_title
-    "#{@month_name}".center(20) + "  "
+  def title *year
+    year[0] ? "#{@month_name} #{year[0]}".center(20) + "  \n" : "#{@month_name}".center(20) + "  "
   end
 
   def month_start_day
@@ -25,11 +19,11 @@ class Month
     century = (zellers_year / ONE_HUNDRED_YEARS).floor
     day_of_week = (century/FOUR_YEARS).floor + (5 * century) + year_of_century 
     day_of_week += (year_of_century/FOUR_YEARS).floor + (((month_code + 1) * 26) / 10.0).floor + FIRST_DAY
-    day_of_week = day_of_week.modulo(7)
+    day_of_week.modulo(7)
   end
 
   def zellers_year
-    # In zeller's congruence, January and February are calculated using the previous year
+    # In zeller's congruence, the year is adjusted for January and February
     # Implemented using Zeller's Congruence http://en.wikipedia.org/wiki/Zeller%27s_congruence
     zellers_year = @month < 3 ? @year - 1 : @year
   end
@@ -44,15 +38,7 @@ class Month
     # leap years are either divisible by 400 or by 4
     # years that are divisible by 100 are not leap years
     # http://en.wikipedia.org/wiki/Leap_year
-    if (@year % FOUR_HUNDRED_YEARS) == 0 
-      true
-    elsif (@year % ONE_HUNDRED_YEARS) == 0
-      false
-    elsif (@year % FOUR_YEARS) == 0
-      true
-    else
-      false
-    end 
+    (@year % FOUR_HUNDRED_YEARS) == 0 || (@year % FOUR_YEARS) == 0 && (@year % ONE_HUNDRED_YEARS) != 0 ? true : false
   end
 
   def days_and_spaces_array
@@ -70,6 +56,7 @@ class Month
 
   def print_month
     month = generate_weeks_array.inject(String.new) { |month, line| month += line + "\n" }
-    title + WEEK_DAYS + "\n" + month
+    title(@year) + WEEK_DAYS + "\n" + month
   end
+
 end

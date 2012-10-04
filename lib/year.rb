@@ -13,7 +13,7 @@ class Year
 
   def month_array(month_num)
   	month = Month.new(month_num, @year)
-    whole_month = [month.simple_title, WEEK_DAYS] + month.generate_weeks_array
+    whole_month = [month.title, WEEK_DAYS] + month.generate_weeks_array
   end
 
   def complete_year
