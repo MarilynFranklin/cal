@@ -4,7 +4,7 @@ class Year
   attr_reader :year 
 
   def initialize(year)
-  	@year = year
+    @year = year
   end
 
   def title
