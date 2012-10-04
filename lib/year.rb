@@ -18,55 +18,43 @@ class Year
 
   def complete_year
     complete_year = Array.new
-    i = 1
-    while i <= LAST_MONTH do 
-      complete_year << month_array(i)
-      i += 1
-    end
+    EACH_MONTH.times { |i| complete_year << month_array(i += 1) }
     complete_year
   end
 
   def three_column_year_array
-    pretty_year = Array.new
+    jan_to_mar = compile_three_months(0)
+    apr_to_jun = compile_three_months(3)
+    jul_to_sep = compile_three_months(6)
+    oct_to_dec = compile_three_months(9)
+    three_column_year = jan_to_mar + apr_to_jun + jul_to_sep + oct_to_dec
+  end
+
+  def compile_three_months(month_index)
+    three_months_grouped = []
     i = 1
-    year_index = 0
-    month_index = 0
+    week_index = 0
     new_line = ""
-    while i <= LAST_LINE_OF_TWELFTH_MONTH do 
-      line = complete_year[year_index][month_index]
-      if i == LAST_LINE_OF_THIRD_MONTH  || i == LAST_LINE_OF_SIXTH_MONTH || i == LAST_LINE_OF_NINTH_MONTH
-        pretty_year << new_line + line 
+    while i <= LAST_LINE_OF_THIRD_MONTH do 
+      line = complete_year[month_index][week_index]     
+      if i % EVERY_THIRD_LINE == 0
+        three_months_grouped << new_line + line
         new_line = ""
-        year_index += 1
-        month_index = 0
-      elsif i % EVERY_THIRD_LINE == 0
-        pretty_year << new_line + line
-        new_line = ""
-        year_index -= 2
-        month_index += 1
+        month_index -= 2
+        week_index += 1
       else
         new_line = new_line + line
-        year_index += 1
+        month_index += 1
       end
       i += 1
     end
-    pretty_year
+    three_months_grouped
   end
 
   def print_year
-    last_line = three_column_year_array.length
     year = title
-    i = 1
-    three_column_year_array.each do |line|
-      if i % 8 == 0
-        year = year + line + "\n" 
-        year = year + "\n" if i != last_line
-      else
-        year = year + line + "\n"
-      end
-      i += 1
-    end
-    year
+    three_column_year_array.collect{|line| line + "\n" }.each_slice(8){|line| year += line.join + "\n" }
+    year.chop
   end
 
 end

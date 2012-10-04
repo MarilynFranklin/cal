@@ -12,7 +12,7 @@ def reassign_month_name_to_integer_value(month_string, year)
     puts "#{month_string} is not a valid month."
   else
     cal = Month.new(month_int, year)
-    cal.print_month
+    puts cal.print_month
   end
 end
 
@@ -36,7 +36,7 @@ if ARGV.length == 2
   	puts "Sorry, cal only works for dates from year 1800 through year 3000."
   else
     cal = Month.new(month, year)
-    puts cal.print_month
+    cal.print_month
   end
 elsif ARGV.length == 1
   year_string = ARGV[0]

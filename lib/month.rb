@@ -63,27 +63,15 @@ class Month
   end
 
   def generate_weeks_array
+    # added_padding_array = days_and_spaces_array.inject(Array.new) { |memo, value| memo << value.center(3)}
+    # added_padding_array = days_and_spaces_array.collect { |value| value.center(3)}
     weeks_array = Array.new
-    i = 1
-    line = ""
-    days_and_spaces_array.each do |n|
-      if i % 7 == 0
-        line += n.rjust(2) + "  "
-        weeks_array << line
-        line = ""
-      else
-        line += n.center(3)
-      end
-      i += 1
-    end
+    days_and_spaces_array.collect { |value| value.center(3) }.each_slice(7) { |value| weeks_array << value.join + " " }
     weeks_array
   end
 
   def print_month
-    month = title + WEEK_DAYS + "\n"
-    generate_weeks_array.each do |line|
-      month += line + "\n"
-    end
-    month
+    month = generate_weeks_array.inject(String.new) { |month, line| month += line + "\n" }
+    title + WEEK_DAYS + "\n" + month
   end
 end

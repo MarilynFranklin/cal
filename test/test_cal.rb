@@ -326,4 +326,16 @@ Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa
                       30                                          
 """, cal.print_year
   end
+
+  def test_21_test_compile_three_months
+    cal = cal = Year.new(1886)
+    assert_equal ["      January               February               March          ",
+                   "Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  ",
+                   "                1  2      1  2  3  4  5  6      1  2  3  4  5  6  ",
+                   " 3  4  5  6  7  8  9   7  8  9 10 11 12 13   7  8  9 10 11 12 13  ",
+                   "10 11 12 13 14 15 16  14 15 16 17 18 19 20  14 15 16 17 18 19 20  ",
+                   "17 18 19 20 21 22 23  21 22 23 24 25 26 27  21 22 23 24 25 26 27  ",
+                   "24 25 26 27 28 29 30  28                    28 29 30 31           ",
+                   "31                                                                ",], cal.compile_three_months(0)
+  end
 end
